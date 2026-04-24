@@ -211,7 +211,16 @@ export default function Home() {
           >
             <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Ceres & Pomona" className="h-32 w-auto mx-auto drop-shadow-[0_0_60px_rgba(217,119,6,0.4)]" />
+              <img
+                src="/logo.png"
+                alt="Ceres & Pomona"
+                className="h-64 w-auto mx-auto"
+                style={{
+                  WebkitMaskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, black 50%, transparent 100%)",
+                  maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, black 50%, transparent 100%)",
+                  filter: "drop-shadow(0 0 40px rgba(217,119,6,0.45))",
+                }}
+              />
             </motion.div>
           </motion.div>
 
@@ -517,7 +526,15 @@ export default function Home() {
       <footer className="border-t border-[#f0ead6]/8 py-12 px-4 text-center">
         <FadeUp className="flex flex-col items-center gap-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="Ceres & Pomona" className="h-14 w-auto opacity-50 hover:opacity-80 transition-opacity duration-300" />
+          <img
+            src="/logo.png"
+            alt="Ceres & Pomona"
+            className="h-20 w-auto opacity-60 hover:opacity-90 transition-opacity duration-300"
+            style={{
+              WebkitMaskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, black 50%, transparent 100%)",
+              maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, black 50%, transparent 100%)",
+            }}
+          />
           <p className="text-xs text-[#f0ead6]/20">
             © {new Date().getFullYear()} Ceres & Pomona Marketing Digital · Concepción del Uruguay, Entre Ríos
           </p>
