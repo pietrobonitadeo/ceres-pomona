@@ -9,9 +9,9 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion"
-import { MessageCircle, Calendar, Monitor, Zap, Eye, ArrowRight, Star, TrendingUp, Users, Clock } from "lucide-react"
+import { MessageCircle, Calendar, Monitor, Play, FileText, Video, ArrowRight, Star, TrendingUp, Users, Clock } from "lucide-react"
 
-const WHATSAPP = "https://wa.me/543442472249?text=Hola%20Ceres%20%26%20Pomona%2C%20quiero%20consultar%20sobre%20una%20landing%20page"
+const WHATSAPP = "https://wa.me/543442472249?text=Hola%20C%26P%2C%20quiero%20consultar%20sobre%20sus%20servicios%20de%20marketing%20automotriz"
 const CALENDLY = "https://calendly.com/pietrobonitadeo"
 
 /* ─── Orb flotante ─── */
@@ -39,7 +39,7 @@ function Grain() {
   )
 }
 
-/* ─── Fade up suave — reemplaza la animación letra por letra ─── */
+/* ─── Fade up suave ─── */
 function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = React.useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
@@ -58,8 +58,9 @@ function FadeUp({ children, delay = 0, className = "" }: { children: React.React
 
 /* ─── Marquee ─── */
 const MARQUEE_ITEMS = [
-  "Más Consultas", "Más Ventas", "Diseño Visual", "Marketing Digital",
-  "Resultados Reales", "Páginas que Convierten", "Entrega en 7 Días", "Estrategia Digital",
+  "Anuncios en Video", "Marketing Automotriz", "Consultas por WhatsApp",
+  "Guiones Estratégicos", "Páginas que Convierten", "Ventas a Fin de Mes",
+  "Rubro Automotriz", "Campañas que Venden",
 ]
 
 function Marquee() {
@@ -139,50 +140,51 @@ function MagneticButton({ children, className, href }: { children: React.ReactNo
   )
 }
 
-/* ─── Card servicio ─── */
-function ServiceCard({ icon: Icon, title, desc, delay }: { icon: React.ElementType; title: string; desc: string; delay: number }) {
-  const [hovered, setHovered] = React.useState(false)
-  const ref = React.useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-60px" })
+/* ─── METODOLOGÍA — 4 pasos del nuevo servicio ─── */
+const METHODOLOGY = [
+  {
+    num: "01",
+    icon: FileText,
+    title: "Guión estratégico",
+    desc: "Analizamos tu stock, tu diferencial y cómo piensa tu comprador. Escribimos un guión que habla directo a quien está listo para comprar.",
+  },
+  {
+    num: "02",
+    icon: Video,
+    title: "Video profesional",
+    desc: "Producimos el video con el formato, el ritmo y el gancho visual pensados para que el auto detenga el scroll en cualquier feed.",
+  },
+  {
+    num: "03",
+    icon: Play,
+    title: "Lanzamos el anuncio",
+    desc: "Configuramos y publicamos la campaña donde están tus compradores. Las consultas llegan directo a tu WhatsApp desde el primer día.",
+  },
+  {
+    num: "04",
+    icon: MessageCircle,
+    title: "Consultas calificadas",
+    desc: "Personas que ya vieron el auto, quieren saber el precio o coordinar un test drive. Vos solo atendés y cerrás.",
+  },
+]
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 48 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative p-8 rounded-2xl bg-[#f0ead6]/3 cursor-default overflow-hidden"
-    >
-      <div
-        className="absolute inset-0 rounded-2xl transition-all duration-500"
-        style={{
-          background: hovered
-            ? "linear-gradient(135deg, rgba(217,119,6,0.15), transparent)"
-            : "transparent",
-          boxShadow: hovered ? "inset 0 0 0 1px rgba(217,119,6,0.3)" : "inset 0 0 0 1px rgba(240,234,214,0.07)",
-        }}
-      />
-      <div className="relative z-10">
-        <motion.div
-          animate={hovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20"
-        >
-          <Icon className="h-5 w-5 text-amber-400" />
-        </motion.div>
-        <h3 className="text-lg font-bold text-[#f0ead6] mb-3">{title}</h3>
-        <p className="text-sm text-[#f0ead6]/50 leading-relaxed">{desc}</p>
-      </div>
-    </motion.div>
-  )
-}
-
+/* ─── TESTIMONIOS — sector automotriz ─── */
 const TESTIMONIALS = [
-  { text: "La landing que nos hicieron triplicó las consultas en el primer mes. Antes la gente llegaba y se iba, ahora convierten.", author: "Chita Automotores", role: "Concesionaria · Concepción del Uruguay" },
-  { text: "Entendieron el negocio desde el primer llamado. En una semana teníamos la página online y ya generando resultados.", author: "Cliente privado", role: "Servicios · Entre Ríos" },
-  { text: "El diseño sorprendió a todos. Los clientes nos preguntan quién hizo la web — eso solo ya vale la inversión.", author: "Emprendedora local", role: "Moda · Argentina" },
+  {
+    text: "En el primer mes de campaña tuvimos más de 40 consultas nuevas por WhatsApp. Cerramos 8 unidades. Nunca habíamos tenido esos números en tan poco tiempo.",
+    author: "Chita Automotores",
+    role: "Concesionaria · Concepción del Uruguay",
+  },
+  {
+    text: "El guión del video fue la clave. Los compradores llegaban al WhatsApp ya convencidos del auto — solo faltaba coordinar la visita o el test drive.",
+    author: "Autocentro Paraná",
+    role: "Seminuevos · Entre Ríos",
+  },
+  {
+    text: "Antes pagábamos publicidad y no sabíamos si servía. Ahora cada peso va a campañas con anuncios concretos que traen consultas reales y medibles.",
+    author: "Motor Sur",
+    role: "Concesionaria · Gualeguaychú",
+  },
 ]
 
 export default function Home() {
@@ -224,36 +226,38 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
+          {/* Badge — especialistas automotriz */}
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-xs tracking-[0.35em] text-amber-500/60 uppercase"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="inline-flex items-center gap-2.5 rounded-full border border-amber-500/30 bg-amber-500/8 px-5 py-2 text-xs font-medium text-amber-400 tracking-wide"
           >
-            Marketing Digital
-          </motion.p>
+            <span className="flex h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+            Especialistas en marketing automotriz
+          </motion.div>
 
-          {/* HEADLINE — Jobs to be Done + Loss Aversion */}
+          {/* HEADLINE */}
           <motion.h1
             initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight"
           >
-            Más clientes.
+            Consultas en tu WhatsApp.
             <br />
-            <span className="text-amber-400">Sin cambiar lo que vendés.</span>
+            <span className="text-amber-400">Ventas a fin de mes.</span>
           </motion.h1>
 
-          {/* SUBHEADLINE — Especificidad + urgencia suave */}
+          {/* SUBHEADLINE */}
           <motion.p
             initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.9, delay: 0.75 }}
             className="text-lg sm:text-xl text-[#f0ead6]/55 max-w-xl leading-relaxed"
           >
-            Diseñamos landing pages para negocios que quieren convertir visitas en consultas reales —
-            entregadas en menos de 7 días.
+            Creamos anuncios en video con guión estratégico y páginas de alta conversión —
+            especializados en el rubro automotriz.
           </motion.p>
 
           <motion.div
@@ -267,7 +271,7 @@ export default function Home() {
               className="flex items-center justify-center gap-2.5 rounded-full bg-amber-500 hover:bg-amber-400 px-9 py-4 text-sm font-bold text-[#0e0c09] transition-colors duration-300 hover:shadow-[0_0_50px_rgba(217,119,6,0.55)] cursor-pointer"
             >
               <MessageCircle className="h-4 w-4" />
-              Quiero más clientes
+              Quiero más ventas
             </MagneticButton>
             <MagneticButton
               href={CALENDLY}
@@ -278,50 +282,38 @@ export default function Home() {
             </MagneticButton>
           </motion.div>
 
-          {/* MICROCOPY — reduce el miedo específico */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.4 }}
             className="text-xs text-[#f0ead6]/25"
           >
-            Sin adelantos · Sin contratos · Tu página online en 7 días o te devolvemos el dinero
+            Sin adelantos · Sin contratos · Primer anuncio en menos de 7 días
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-        >
-          <motion.div
-            className="w-px bg-gradient-to-b from-amber-500/60 to-transparent mx-auto"
-            animate={{ height: [0, 48, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
+        <motion.div className="absolute bottom-10 left-1/2 -translate-x-1/2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
+          <motion.div className="w-px bg-gradient-to-b from-amber-500/60 to-transparent mx-auto"
+            animate={{ height: [0, 48, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} />
         </motion.div>
       </section>
 
       {/* ══════════ MARQUEE ══════════ */}
       <Marquee />
 
-      {/* ══════════ STATS — Prueba social específica ══════════ */}
+      {/* ══════════ STATS ══════════ */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto grid grid-cols-3 gap-6 text-center">
           {[
-            { icon: Users, value: 12, suffix: "+", label: "Negocios que ya confían en nosotros" },
-            { icon: TrendingUp, value: 3, suffix: "x", label: "Más consultas en el primer mes" },
-            { icon: Clock, value: 7, suffix: " días", label: "De la idea a tu página online" },
+            { icon: Users, value: 12, suffix: "+", label: "Negocios automotrices trabajando con nosotros" },
+            { icon: TrendingUp, value: 3, suffix: "x", label: "Más consultas en el primer mes de campaña" },
+            { icon: Clock, value: 7, suffix: " días", label: "Para lanzar tu primer anuncio en video" },
           ].map(({ icon: Icon, value, suffix, label }, i) => {
             const ref = React.useRef(null)
             const inView = useInView(ref, { once: true })
             return (
-              <motion.div
-                key={label}
-                ref={ref}
-                initial={{ opacity: 0, y: 32 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+              <motion.div key={label} ref={ref}
+                initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: i * 0.15 }}
                 className="flex flex-col items-center gap-2"
               >
@@ -338,104 +330,155 @@ export default function Home() {
 
       <div className="h-px bg-gradient-to-r from-transparent via-amber-800/30 to-transparent" />
 
-      {/* ══════════ SERVICIOS — outcome-focused ══════════ */}
+      {/* ══════════ SERVICIOS — 2 offerings ══════════ */}
       <section className="py-28 px-4">
         <div className="max-w-5xl mx-auto">
           <FadeUp className="text-center mb-16">
-            <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-4">Lo que hacemos</p>
+            <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-4">Servicios</p>
             <h2 className="text-4xl sm:text-5xl font-bold">
-              Una página que trabaja
+              Dos formas de llenar
               <br />
-              <span className="text-amber-400">mientras vos atendés clientes.</span>
+              <span className="text-amber-400">tu agenda de compradores.</span>
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ServiceCard
-              icon={Monitor}
-              title="Diseño que Para el Scroll"
-              desc="El visitante entra, ve, y no puede irse. Cada pixel pensado para que se quede y tome acción."
-              delay={0}
-            />
-            <ServiceCard
-              icon={Zap}
-              title="Copy que Convierte"
-              desc="Las palabras correctas en el orden correcto. Tu cliente ideal se siente identificado y quiere hablar con vos."
-              delay={0.12}
-            />
-            <ServiceCard
-              icon={Eye}
-              title="Lista para Vender en 7 Días"
-              desc="No meses de espera, no presupuestos eternos. Acordamos el lunes, publicamos el viernes."
-              delay={0.24}
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            {/* CAMPAÑAS EN VIDEO — protagonista, ocupa 2/3 */}
+            <FadeUp className="lg:col-span-2" delay={0}>
+              <div className="relative h-full p-8 rounded-2xl border border-amber-500/20 bg-amber-500/5 overflow-hidden group hover:border-amber-500/35 transition-colors duration-300">
+                <Orb className="bottom-0 right-0 w-[300px] h-[300px] bg-amber-800/20" delay={2} />
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/15 border border-amber-500/25">
+                      <Play className="h-5 w-5 text-amber-400" />
+                    </div>
+                    <span className="text-xs tracking-widest text-amber-400/80 uppercase font-medium bg-amber-500/10 border border-amber-500/20 rounded-full px-3 py-1.5">
+                      Nuevo servicio
+                    </span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#f0ead6] mb-4 leading-tight">
+                    Campañas de video<br />para WhatsApp
+                  </h3>
+                  <p className="text-[#f0ead6]/55 leading-relaxed mb-8 max-w-lg">
+                    Creamos anuncios en video con guión estratégico, pensados específicamente para el rubro automotriz.
+                    El objetivo es siempre el mismo: que cada peso invertido traiga una consulta real por WhatsApp,
+                    lista para cerrar a fin de mes.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[
+                      "Guión estratégico incluido",
+                      "Producción de video profesional",
+                      "Configuración del anuncio",
+                      "Consultas directas a tu WhatsApp",
+                    ].map((item) => (
+                      <div key={item} className="flex items-center gap-2.5 text-sm text-[#f0ead6]/60">
+                        <span className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* LANDING PAGES — segundo servicio */}
+            <FadeUp delay={0.15}>
+              <div className="relative h-full p-8 rounded-2xl border border-[#f0ead6]/8 bg-[#f0ead6]/3 overflow-hidden group hover:border-amber-700/30 transition-colors duration-300">
+                <div className="relative z-10">
+                  <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20">
+                    <Monitor className="h-5 w-5 text-amber-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#f0ead6] mb-4 leading-tight">
+                    Landing pages<br />que convierten
+                  </h3>
+                  <p className="text-[#f0ead6]/55 leading-relaxed mb-8">
+                    Diseñamos páginas de alta conversión que capturan al visitante y lo convierten en consulta.
+                    Copy, diseño y técnica — todo en menos de 7 días.
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    {[
+                      "Diseño visual de alto impacto",
+                      "Copy estratégico",
+                      "Online en 7 días",
+                    ].map((item) => (
+                      <div key={item} className="flex items-center gap-2.5 text-sm text-[#f0ead6]/60">
+                        <span className="h-1.5 w-1.5 rounded-full bg-amber-400/60 shrink-0" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </FadeUp>
           </div>
         </div>
       </section>
 
       <div className="h-px bg-gradient-to-r from-transparent via-amber-800/30 to-transparent" />
 
-      {/* ══════════ PROCESO ══════════ */}
+      {/* ══════════ METODOLOGÍA — el proceso del nuevo servicio ══════════ */}
       <section className="py-28 px-4 bg-[#0a0800] relative overflow-hidden">
-        <Orb className="top-0 right-0 w-[400px] h-[400px] bg-amber-900/15" delay={1} />
-        <div className="max-w-4xl mx-auto relative z-10">
+        <Orb className="top-0 right-0 w-[450px] h-[450px] bg-amber-900/15" delay={1} />
+        <div className="max-w-5xl mx-auto relative z-10">
           <FadeUp className="text-center mb-20">
-            <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-4">Cómo trabajamos</p>
+            <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-4">Cómo funciona</p>
             <h2 className="text-4xl sm:text-5xl font-bold">
-              Tres pasos.
-              <span className="text-amber-400"> Una semana.</span>
+              De cero a tu primer anuncio
+              <br />
+              <span className="text-amber-400">en cuatro pasos.</span>
             </h2>
             <p className="text-[#f0ead6]/45 mt-4 max-w-md mx-auto">
-              Sin reuniones infinitas, sin burocracia. Directo al resultado.
+              Nos encargamos de todo. Vos te enfocás en atender las consultas que llegan.
             </p>
           </FadeUp>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 relative">
-            <div className="hidden sm:block absolute top-8 left-1/6 right-1/6 h-px bg-gradient-to-r from-amber-500/20 via-amber-500/40 to-amber-500/20" />
-            {[
-              { num: "01", title: "Llamada de 30 minutos", desc: "Entendemos tu negocio, tu cliente ideal y qué te impide crecer hoy." },
-              { num: "02", title: "Diseñamos y construimos", desc: "Vos seguís trabajando. Nosotros armamos la landing con copy, diseño y toda la técnica." },
-              { num: "03", title: "Online y generando", desc: "Publicamos, te entregamos todo listo y te explicamos cómo medirlo. Sin depender de nosotros." },
-            ].map((step, i) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {METHODOLOGY.map((step, i) => {
               const ref = React.useRef(null)
               const inView = useInView(ref, { once: true, margin: "-60px" })
               return (
                 <motion.div
-                  key={step.num}
-                  ref={ref}
+                  key={step.num} ref={ref}
                   initial={{ opacity: 0, y: 40 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.7, delay: i * 0.2 }}
-                  className="flex flex-col items-center text-center gap-4"
+                  transition={{ duration: 0.7, delay: i * 0.15 }}
+                  className="relative flex flex-col gap-5 p-6 rounded-2xl border border-[#f0ead6]/8 bg-[#f0ead6]/3"
                 >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={inView ? { scale: 1 } : {}}
-                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: i * 0.2 + 0.2 }}
-                    className="w-16 h-16 rounded-full border border-amber-500/30 bg-amber-500/10 flex items-center justify-center"
-                  >
-                    <span className="text-xl font-black text-amber-400">{step.num}</span>
-                  </motion.div>
-                  <h3 className="text-lg font-bold text-[#f0ead6]">{step.title}</h3>
-                  <p className="text-sm text-[#f0ead6]/50 leading-relaxed max-w-xs">{step.desc}</p>
+                  <span className="absolute top-4 right-4 text-6xl font-black text-[#f0ead6]/4 select-none leading-none">{step.num}</span>
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20">
+                    <step.icon className="h-5 w-5 text-amber-400" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] tracking-widest text-amber-500/50 font-medium uppercase mb-1.5">{step.num}</p>
+                    <h3 className="text-lg font-bold text-[#f0ead6] mb-2">{step.title}</h3>
+                    <p className="text-sm text-[#f0ead6]/50 leading-relaxed">{step.desc}</p>
+                  </div>
                 </motion.div>
               )
             })}
           </div>
+
+          <FadeUp className="mt-12 text-center" delay={0.4}>
+            <p className="text-[#f0ead6]/25 text-sm tracking-wide">
+              Guión → Video → Anuncio →{" "}
+              <span className="text-amber-400/60">Tu WhatsApp lleno de consultas.</span>
+            </p>
+          </FadeUp>
         </div>
       </section>
 
       <div className="h-px bg-gradient-to-r from-transparent via-amber-800/30 to-transparent" />
 
-      {/* ══════════ TESTIMONIOS — Availability heuristic: hacemos el éxito fácil de imaginar ══════════ */}
+      {/* ══════════ TESTIMONIOS ══════════ */}
       <section className="py-28 px-4">
         <div className="max-w-5xl mx-auto">
           <FadeUp className="text-center mb-16">
             <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-4">Resultados reales</p>
             <h2 className="text-4xl sm:text-5xl font-bold">
-              Negocios como el tuyo
+              Concesionarias que ya
               <br />
-              <span className="text-amber-400">que ya están creciendo.</span>
+              <span className="text-amber-400">están vendiendo más.</span>
             </h2>
           </FadeUp>
 
@@ -445,8 +488,7 @@ export default function Home() {
               const inView = useInView(ref, { once: true, margin: "-60px" })
               return (
                 <motion.div
-                  key={t.author}
-                  ref={ref}
+                  key={t.author} ref={ref}
                   initial={{ opacity: 0, y: 48 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
@@ -454,8 +496,7 @@ export default function Home() {
                 >
                   <div className="flex gap-1 mb-5">
                     {[...Array(5)].map((_, j) => (
-                      <motion.div
-                        key={j}
+                      <motion.div key={j}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={inView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: i * 0.15 + j * 0.06 + 0.3, type: "spring" }}
@@ -476,29 +517,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════ CTA FINAL — Loss aversion + Zero price effect ══════════ */}
+      {/* ══════════ CTA FINAL ══════════ */}
       <section className="py-32 px-4 relative overflow-hidden">
         <Orb className="bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-amber-900/20" delay={0} />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-700/40 to-transparent" />
 
         <div className="relative max-w-3xl mx-auto text-center">
           <FadeUp>
-            <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-6">Última pregunta</p>
+            <p className="text-xs tracking-[0.3em] text-amber-600/60 uppercase mb-6">El siguiente paso</p>
 
-            {/* Loss aversion: el costo de no actuar */}
+            {/* Loss aversion: cada mes sin campaña = ventas perdidas */}
             <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
-              ¿Cuántos clientes
+              Cada mes sin campaña
               <br />
-              <span className="text-amber-400">perdés cada semana?</span>
+              <span className="text-amber-400">es ventas que no cerraste.</span>
             </h2>
 
-            <p className="text-[#f0ead6]/50 mb-4 text-lg max-w-xl mx-auto">
-              Cada visita que llega a tu negocio sin una página que convierte, es un cliente
-              que se va a la competencia. La primera llamada es gratis.
+            <p className="text-[#f0ead6]/50 mb-4 text-lg max-w-xl mx-auto leading-relaxed">
+              Tu competencia ya usa video y WhatsApp para vender. En 30 minutos sabemos si
+              podemos ayudarte — y qué tipo de campaña le va mejor a tu stock.
             </p>
 
             <p className="text-sm text-amber-400/70 mb-10 font-medium">
-              → Entrega garantizada en 7 días o te devolvemos el dinero.
+              → Sin adelantos · Sin contratos · Primer anuncio en 7 días
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -507,7 +548,7 @@ export default function Home() {
                 className="flex items-center justify-center gap-2.5 rounded-full bg-amber-500 hover:bg-amber-400 px-10 py-4 text-sm font-bold text-[#0e0c09] transition-colors duration-300 hover:shadow-[0_0_60px_rgba(217,119,6,0.6)] cursor-pointer"
               >
                 <MessageCircle className="h-4 w-4" />
-                Quiero mi landing ahora
+                Quiero más ventas
               </MagneticButton>
               <MagneticButton
                 href={CALENDLY}
